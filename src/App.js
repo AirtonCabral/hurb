@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect }  from 'react';
+
+import Background from "./components/Background/Background";
+import SideWeather from "./components/sideWeather/sideWeather";
 
 function App() {
+  const [ location, setLocation] = useState({});
+
+  useEffect(()=> {
+    navigator.geolocation.watchPosition(success, error)
+  },[])
+
+  function success( pos ) {
+    const { latitude, longitude } = pos.coords;
+    setLocation({latitude, longitude})
+  }
+
+  function error(err) {
+    console.warn('ERRO(' + err.code + '): ' + err.message);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+   <Background></Background>
+   <SideWeather location={location}></SideWeather>
+   {/* <ul>
+     <li>latitude: {location.latitude}</li>
+     <li>longitude: {location.longitude}</li>
+   </ul> */}
+  </>
   );
 }
 
