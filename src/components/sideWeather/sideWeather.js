@@ -3,7 +3,12 @@ import './sideWeather.css'
 
 export default function SideWeather(props) {
 	const [ local, setLocal ]= useState({});
-	const [ state, setState ] = useState({});
+	const [ state, setState ] = useState({
+		components: { 
+			state: "N/A",
+			city: "N/A"
+		}
+	});
 	const [ weather, setWeather ] = useState({});
 	const [ nextWeathers, setNextWeathers ] = useState({});
 	const [ loading, setLoading ] = useState(true)
@@ -64,7 +69,6 @@ export default function SideWeather(props) {
 	},[weather, unit.unitForm])
 
 	function handleTemp() {
-		debugger
 		if(unit.unitForm === 'metric') {
 			setUnit({unitForm: 'imperial', metricLetter: '°F', speed: 'km/h'})
 		} else {
